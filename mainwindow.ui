@@ -1,0 +1,777 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1030</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1920</width>
+    <height>1030</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1030</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>now2play-lite</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="stopBtn">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaPlaybackStop" />
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="FileProgressBar">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>180</y>
+      <width>641</width>
+      <height>58</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>50</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>580</width>
+      <height>58</height>
+     </size>
+    </property>
+    <property name="sizeIncrement">
+     <size>
+      <width>580</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>580</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar {
+    border: 2px solid #1a1a1a;
+    text-align: center; /* Metni merkeze zorlar */
+    min-height: 54px;   /* İncelmesini önlemek için sabit yükseklik */
+    color: white;       /* Yazı rengi */
+    font-weight: bold;
+    font: 22pt "Noto Sans";
+background-color: #282828; 
+}
+
+
+QProgressBar::chunk {
+    background-color: #55aaff; /* İlerleyen kısmın rengi */
+    width: 1px; /* Akıcı ilerleme için 1 piksel */
+}</string>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="textVisible">
+     <bool>true</bool>
+    </property>
+    <property name="format">
+     <string />
+    </property>
+   </widget>
+   <widget class="QTableView" name="playlistTableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>1401</width>
+      <height>661</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* Tablonun Genel Gövdesi */
+QTableView {
+    background-color: #121212;      /* Koyu arka plan */
+    color: #e0e0e0;                 /* Açık gri yazı */
+    gridline-color: #252525;        /* Izgara çizgileri */
+    selection-background-color: #333333; /* Seçili satır rengi */
+    selection-color: #55aaff;       /* Seçili yazı rengi (Progress rengiyle aynı) */
+    border:1px solid #383838;
+    font: 11pt "Noto Sans";
+    outline: 0;                     /* Odak çerçevesini kaldırır */
+}
+
+/* Hücrelerin Genel Ayarı */
+QTableView::item {
+    padding-left: 5px;              /* İstediğin 5px padding */
+    padding-right: 5px;
+    height: 40px;                   /* Satır yüksekliği */
+    border-bottom: 1px solid #1a1a1a;
+}
+
+/* Başlıkların (Header) Ayarı */
+QHeaderView::section {
+    background-color: #1a1a1a;      /* ProgressBar çerçeve rengiyle uyumlu */
+    color: #888888;                 /* Başlık yazı rengi */
+    padding-left: 10px;              /* İstediğin 5px sol boşluk */
+    text-align: left;               /* Başlıkları sola yaslar */
+    border: none;
+    border-right: 1px solid #383838; /* Sütunlar arası ince ayırıcı */
+	border-bottom:1px solid #383838;
+    font-weight: bold;
+    height: 30px;                   /* Başlık yüksekliği */
+}
+
+/* Sadece EN SONDAKİ başlığın sağındaki çizgiyi kaldır */
+QHeaderView::section:last {
+    border-right: none;
+}
+
+/* Köşe boşluğu */
+QTableCornerButton::section {
+    background-color: #1a1a1a;
+    border: none;
+}
+
+QTableView::item:selected {
+    background-color: #55aaff;      /* Seçili satırın arka planı (Biraz daha açık bir gri) */
+    color: #1a1a1a;                 /* Seçili yazı rengi (Sende zaten bu vardı) */
+}
+</string>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+    </property>
+    <property name="dragEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+    </property>
+    <attribute name="horizontalHeaderCascadingSectionResizes">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>10</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="playBtn">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaPlaybackStart" />
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="PlaylistProgressBar">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>240</y>
+      <width>641</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>38</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar {
+    border: 2px solid #1a1a1a;
+    text-align: center; /* Metni merkeze zorlar */
+    min-height: 34px;   /* İncelmesini önlemek için sabit yükseklik */
+    color: white;       /* Yazı rengi */
+    font-weight: bold;
+    font: 18pt "Noto Sans";
+background-color: #282828; 
+}
+
+
+QProgressBar::chunk {
+    background-color: #55aaff; /* İlerleyen kısmın rengi */
+    width: 1px; /* Akıcı ilerleme için 1 piksel */
+}</string>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="format">
+     <string />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addFile">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>290</y>
+      <width>85</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add File</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::ContactNew" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pauseBtn">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaPlaybackPause" />
+    </property>
+   </widget>
+   <widget class="QLabel" name="fileLabel">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>0</y>
+      <width>631</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>22</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>310</y>
+      <width>491</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #282828;
+border:1px solid #383838;</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Explorer</string>
+     </attribute>
+     <widget class="QListView" name="listViewExp">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>45</y>
+        <width>484</width>
+        <height>591</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="driveComboBox">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>10</y>
+        <width>341</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="selectDriveLbl">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>12</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">Border:none;</string>
+      </property>
+      <property name="text">
+       <string>Select Drive :</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="nextBtn">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaSkipForward" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backBtn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::MediaSkipBackward" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnMutePreview">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>290</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+            border: 2px solid rgb(170, 0, 0);
+            background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, 
+          y2:1, stop:0 rgb(40, 40, 40), stop:1 rgb(60, 60, 60));
+            border-radius: 5px;
+            color: rgb(0, 195, 0);
+            font-weight: bold;
+          }</string>
+    </property>
+    <property name="text">
+     <string />
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::AudioVolumeMuted" />
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxEndTime">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>10</y>
+      <width>241</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border: 1px solid #484848; margin-top: 1ex; } QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 3px; }</string>
+    </property>
+    <property name="title">
+     <string>PLAYLIST END TIME</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QLabel" name="pEndTimeLbl">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>32</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 170, 0);
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>00:00:00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxDurTime">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>90</y>
+      <width>241</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border: 1px solid #484848; margin-top: 1ex; } QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 3px; }</string>
+    </property>
+    <property name="title">
+     <string>PLAYLIST DURATION</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QLabel" name="pDurTimeLbl">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>32</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 85, 255);
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>00:00:00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxCurTime">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>170</y>
+      <width>241</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border: 1px solid #484848; margin-top: 1ex; } QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 3px; }</string>
+    </property>
+    <property name="title">
+     <string>PLAYLIST CURRENT TIME</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QLabel" name="pCurTimeLbl">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>32</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(203, 135, 0);
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>00:00:00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxRemainingTime">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>250</y>
+      <width>241</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox { border: 1px solid #484848; margin-top: 1ex; } QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 3px; }</string>
+    </property>
+    <property name="title">
+     <string>PLAYLIST REMAINING TIME</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <widget class="QLabel" name="pRemainingTimeLbl">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>241</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>32</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(208, 0, 0);
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>00:00:00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="clipremainingTimeLbl">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>40</y>
+      <width>631</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>80</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>00:00:00</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QOpenGLWidget" name="playerPreview">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>480</width>
+      <height>270</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QOpenGLWidget" name="mixerPreview">
+    <property name="geometry">
+     <rect>
+      <x>1420</x>
+      <y>10</y>
+      <width>480</width>
+      <height>270</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="settingsBtn">
+    <property name="geometry">
+     <rect>
+      <x>1860</x>
+      <y>290</y>
+      <width>40</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>⚙</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="savePlaylist">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>290</y>
+      <width>85</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save List</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::DocumentSave" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openPlaylist">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>290</y>
+      <width>85</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open List</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::DocumentOpen" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="emptyPlaylist">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>290</y>
+      <width>85</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Empty</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::EditDelete" />
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addPlaylist">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>290</y>
+      <width>85</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add List</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::FormatJustifyFill" />
+    </property>
+   </widget>
+   <zorder>playerPreview</zorder>
+   <zorder>stopBtn</zorder>
+   <zorder>FileProgressBar</zorder>
+   <zorder>playlistTableView</zorder>
+   <zorder>playBtn</zorder>
+   <zorder>PlaylistProgressBar</zorder>
+   <zorder>addFile</zorder>
+   <zorder>pauseBtn</zorder>
+   <zorder>fileLabel</zorder>
+   <zorder>tabWidget</zorder>
+   <zorder>nextBtn</zorder>
+   <zorder>backBtn</zorder>
+   <zorder>btnMutePreview</zorder>
+   <zorder>groupBoxEndTime</zorder>
+   <zorder>groupBoxDurTime</zorder>
+   <zorder>groupBoxCurTime</zorder>
+   <zorder>groupBoxRemainingTime</zorder>
+   <zorder>clipremainingTimeLbl</zorder>
+   <zorder>mixerPreview</zorder>
+   <zorder>settingsBtn</zorder>
+   <zorder>savePlaylist</zorder>
+   <zorder>openPlaylist</zorder>
+   <zorder>emptyPlaylist</zorder>
+   <zorder>addPlaylist</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+ </widget>
+ <customwidgets />
+ <resources />
+ <connections />
+</ui>

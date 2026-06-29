@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog { background-color: #1a1a1a; color: #e0e0e0; }
+QGroupBox { border: 1px solid #333; border-radius: 6px; margin-top: 15px; font-weight: bold; padding-top: 15px; }
+QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 5px; color: white; }
+QLabel { color: #bbb; }
+QComboBox { background-color: #252525; border: 1px solid #444; color: white; padding: 5px; border-radius: 4px; }
+QCheckBox { color: #ddd; spacing: 8px; font-size: 11pt; font-weight: bold; }
+QCheckBox::indicator { width: 20px; height: 20px; }
+QPushButton { background-color: #333; color: white; border: 1px solid #444; padding: 10px 30px; border-radius: 4px; font-weight: bold; }
+QPushButton:hover { background-color: #444; border-color: #55aaff; }
+QPushButton#saveButton { background-color: #0055ff; border: none; }
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_Main">
+   <item>
+    <widget class="QGroupBox" name="playbackGroup">
+     <property name="title">
+      <string> PLAYER SETTINGS </string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_Playback">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="Autonextmedia">
+        <property name="text">
+         <string>Auto Next Media</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="nextmediapause">
+        <property name="text">
+         <string>Pause on Next Media</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="playlistloop">
+        <property name="text">
+         <string>Loop Playlist</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="systemGroup">
+     <property name="title">
+      <string> SYSTEM SETTINGS </string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_System">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="deinterlaceChk">
+        <property name="text">
+         <string>Deinterlace</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_ScaleType">
+        <item>
+         <widget class="QLabel" name="scaleTypeLabel">
+          <property name="text">
+           <string>Scale Type:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="scaleTypeCombo">
+          <item>
+           <property name="text">
+            <string>aspect-ratio</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>letter-box</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>crop</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="gpuDecodingChk">
+        <property name="text">
+         <string>GPU Decoding</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="outputGroup">
+     <property name="title">
+      <string> HARDWARE OUTPUT SETTINGS </string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_Output">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="outputEnableCheckBox">
+        <property name="text">
+         <string>Enable Hardware Output</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_Device">
+        <item>
+         <widget class="QLabel" name="deviceLabel">
+          <property name="text">
+           <string>Output Device:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="outDeviceComboBox"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_Channel">
+        <item>
+         <widget class="QLabel" name="channelLabel">
+          <property name="text">
+           <string>Channel:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="outDeviceChannelComboBox"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_Format">
+        <item>
+         <widget class="QLabel" name="formatLabel">
+          <property name="text">
+           <string>Format:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="outDeviceFormatComboBox"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_AudioFormat">
+        <item>
+         <widget class="QLabel" name="audioFormatLabel">
+          <property name="text">
+           <string>Audio Format:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="outDeviceAudioFormatComboBox"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_Buttons">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Save &amp; Apply</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TrimDialog</class>
+ <widget class="QDialog" name="TrimDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>660</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>660</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>660</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Next4Play Clip Trim</string>
+  </property>
+  <property name="styleSheet">
+   <string>
+    QDialog { background-color: #2b2b2b; color: #ffffff; }
+    QLabel { color: #aaaaaa; font-weight: normal; font-size: 11px; }
+    QLineEdit { background-color: #111111; color: #ffffff; border: 1px solid #444; padding: 2px; }
+    QProgressBar { border: 1px solid #111; background: #111111; text-align: center; color: white; font-weight: bold; }
+    QProgressBar::chunk { background-color: #0078d7; }
+   </string>
+  </property>
+  <widget class="QOpenGLWidget" name="wPreview">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>640</width>
+     <height>360</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="scrubBar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>380</y>
+     <width>600</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAudioToggle">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>380</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::AudioVolumeMuted"/>
+   </property>
+  </widget>
+  <widget class="RangeSlider" name="rangeSlider" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>420</y>
+     <width>601</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMarkIn">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>450</y>
+     <width>35</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>[</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnPause">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>450</y>
+     <width>35</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::MediaPlaybackPause"/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnPlay">
+   <property name="geometry">
+    <rect>
+     <x>75</x>
+     <y>450</y>
+     <width>35</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::MediaPlaybackStart"/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMarkOut">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>450</y>
+     <width>35</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>]</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="leInTime">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>452</y>
+     <width>90</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="inputMask">
+    <string>99:99:99.99</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSetIn">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>452</y>
+     <width>40</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>IN</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="leOutTime">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>452</y>
+     <width>90</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="inputMask">
+    <string>99:99:99.99</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSetOut">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>452</y>
+     <width>40</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OUT</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnFrameBack">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>-F</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnFrameFwd">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>+F</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSecBack">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>-S</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnSecFwd">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>+S</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMinBack">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>-M</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMinFwd">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>452</y>
+     <width>30</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>+M</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnCancel">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>500</y>
+     <width>80</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CANCEL</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnApply">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>500</y>
+     <width>80</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>APPLY</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RangeSlider</class>
+   <extends>QWidget</extends>
+   <header>rangeslider.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Now2Play
+Comment=Now2Play Lite Playout
+Exec=@CMAKE_BINARY_DIR@/now2play-lite
+Icon=@CMAKE_BINARY_DIR@/now2play.png
+Terminal=false
+Type=Application

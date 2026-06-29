@@ -1,0 +1,11 @@
+# Build output directory
+build/
+
+# Qt Creator specific files
+.qtcreator/
+*.user
+
+# Ignore all files inside the SDK directory recursively
+SDK/**
+!SDK/**/
+!SDK/**/.gitkeep
