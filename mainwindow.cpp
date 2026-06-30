@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "LCharacter.h"
-#include "LMixer.h"
 #include "filedialog.h"
 #include "rowcolordelegate.h"
 #include "trimdialog.h"
@@ -71,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow),
       m_playlistModel(new QStandardItemModel(this)), m_lFile(new LFile()),
       m_lReader(new LReader()), m_lPreviewLeft(new LPreview()),
-      m_lPreviewMixer(new LPreview()), m_lMixer(new LMixer()),
+      m_lPreviewMixer(new LPreview()),
       m_lOutput(new LOutput()), m_globalProps(new globalProperties()),
       m_uiTimer(new QTimer(this)), m_treeModel(new QFileSystemModel(this)),
       m_listModel(new QFileSystemModel(this)), m_testTimer(new QTimer(this)) {
@@ -129,16 +127,18 @@ MainWindow::MainWindow(QWidget *parent)
 #else
       QString version = "Unknown";
 #endif
-    QMessageBox::about(this, "About now2play",
-                       QString("<h2>now2play Playout System</h2>"
-                               "<p><b>Version:</b> %1</p>"
-                               "<p>This software is a professional playout "
-                               "automation system.</p>"
-                               "<p>www.now2media.com<br>"
-                               "support@now2media.com - info@now2media.com</p>"
-                               "<p><i>Powered by <b>now2sdk</b> - Advanced Media Framework</i></p>"
-                               "<p>Copyright &copy; 2026 now2media</p>")
-                           .arg(version));
+    QMessageBox::about(
+        this, "About now2play",
+        QString(
+            "<h2>now2play Playout System</h2>"
+            "<p><b>Version:</b> %1</p>"
+            "<p>This software is a professional playout "
+            "automation system.</p>"
+            "<p>www.now2media.com<br>"
+            "support@now2media.com - info@now2media.com</p>"
+            "<p><i>Powered by <b>now2sdk</b> - Advanced Media Framework</i></p>"
+            "<p>Copyright &copy; 2026 now2media</p>")
+            .arg(version));
   });
   // ------------------------------
 
@@ -151,18 +151,12 @@ MainWindow::MainWindow(QWidget *parent)
   // props.width = 320;
   // props.height = 180;
   // props.fps = 25.0;
-  m_lMixer->setVideoFormat(props);
+
   m_lFile->setVideoFormat(props);
-
-  videoFormatProps getProps;
-  m_lMixer->getVideoFormat(getProps);
-
-  int gWidth = getProps.width;
-  int gHeight = getProps.height;
 
   audioFormatProps aProps;
   aProps.setAudioFormat = aF::_16B_48K_2CH;
-  // m_lMixer->setAudioFormat(aProps);
+
   m_lFile->setAudioFormat(aProps);
   // Sol preview (playerPreview)
   m_lPreviewLeft->setProps("ui_framework", "qt");
@@ -172,8 +166,6 @@ MainWindow::MainWindow(QWidget *parent)
   m_lPreviewLeft->setProps("timecode.preview", "true");
   m_lPreviewLeft->setProps("name", "Playlist");
   m_lPreviewLeft->setProps("status", "preview");
-
-
 
   /*colorFilter = new LFilter(LFilter::Video);
   delayfilter = new LFilter(LFilter::Audio);
@@ -191,21 +183,13 @@ MainWindow::MainWindow(QWidget *parent)
   // Mikser Önizleme
   m_lPreviewMixer->setProps("ui_framework", "qt");
   m_lPreviewMixer->previewEnable(ui->mixerPreview, false, true);
-  m_lPreviewMixer->previewObject(m_lMixer);
+  m_lPreviewMixer->previewObject(m_lFile);
   m_lPreviewMixer->setProps("audio_meter", "true");
   m_lPreviewMixer->setProps("name", "PGM");
   m_lPreviewMixer->setProps("status", "program");
-  m_lMixer->addLayer("file", m_lFile, 1, 0, 0, 255, gWidth, gHeight, 0, 0, 0, 0,
-                     0, "", true, 100);
 
   // Çıkış kaynağı olarak mikseri ayarlıyoruz
-  m_lOutput->setSource(m_lMixer);
-  // KJ (CG) Kurulumu
-  m_lCG = new LCharacter();
-  mainLogo = m_lCG->addItem("mainLogo", 0, 0, 0, 0, mainLogoProps);
-  m_lMixer->addLayer("CG", m_lCG, 2, 0, 0, 255, gWidth, gHeight, 0, 0, 0, 0, 0,
-                     "", false, 0);
-
+  m_lOutput->setSource(m_lFile);
 
   audioFormatProps audiooutprops;
   audiooutprops.setAudioFormat = aF::_16B_11K_2CH;
@@ -544,7 +528,6 @@ void MainWindow::onOutFormatChanged(int index) {
 
   m_lOutput->DeviceFormatVideoSet(formatIndex);
 
-  m_lMixer->setVideoFormat(props);
   m_lFile->setVideoFormat(props);
 }
 
@@ -572,7 +555,6 @@ MainWindow::~MainWindow() {
   delete m_lPreviewLeft;
   delete m_lPreviewMixer;
   delete m_lFile;
-  delete m_lMixer;
   delete m_lReader;
   delete m_globalProps;
   delete ui;
@@ -1525,8 +1507,6 @@ void MainWindow::refreshDrives() {
   ui->driveComboBox->blockSignals(false);
 }
 
-
-
 void MainWindow::onPlaylistContextMenuRequested(const QPoint &pos) {
   QModelIndexList selectedRows =
       ui->playlistTableView->selectionModel()->selectedRows();
@@ -1713,24 +1693,4 @@ void MainWindow::deleteSelectedFiles() {
     }
     updateButtonStates();
   }
-}
-
-void MainWindow::on_deinterlace_changed(int state) {
-  bool enabled = (state == Qt::Checked);
-  m_deinterlaceEnabled = enabled;
-  if (m_lFile)
-    m_lFile->setProps("deinterlace", enabled ? "true" : "false");
-}
-
-void MainWindow::on_scale_type_changed(const QString &text) {
-  m_scaleType = text;
-  if (m_lFile)
-    m_lFile->setProps("scale_type", text.toStdString());
-}
-
-void MainWindow::on_gpu_decoding_changed(int state) {
-  bool enabled = (state == Qt::Checked);
-  m_gpuDecoding = enabled;
-  if (m_lFile)
-    m_lFile->setProps("gpu", enabled ? "true" : "false");
 }
