@@ -10,6 +10,9 @@
 int main(int argc, char *argv[]) {
   // --- YAZILIMSAL ZIRH: Donanım ve Sürücü Uyumluluğu ---
 
+  // Bazi sistemlerde Wayland cokerse diye guvenli liman olan X11/XCB'ye zorla
+  qputenv("QT_QPA_PLATFORM", "xcb");
+
   // Qt RHI Katmanını OpenGL'e sabitle (AMD/Wayland/X11 uyumluluğu için)
   qputenv("QSG_RHI_BACKEND", "opengl");
 

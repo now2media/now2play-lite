@@ -3,5 +3,18 @@
     <file>sequare.png</file>
     <file>now2play.png</file>
     <file>now2playlogo.png</file>
+    <file>icons/play.svg</file>
+    <file>icons/stop.svg</file>
+    <file>icons/pause.svg</file>
+    <file>icons/next.svg</file>
+    <file>icons/prev.svg</file>
+    <file>icons/volume.svg</file>
+    <file>icons/mute.svg</file>
+    <file>icons/open.svg</file>
+    <file>icons/save.svg</file>
+    <file>icons/new.svg</file>
+    <file>icons/add.svg</file>
+    <file>icons/delete.svg</file>
+    <file>icons/exit.svg</file>
 </qresource>
 </RCC>

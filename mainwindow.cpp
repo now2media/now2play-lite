@@ -75,36 +75,49 @@ MainWindow::MainWindow(QWidget *parent)
       m_listModel(new QFileSystemModel(this)), m_testTimer(new QTimer(this)) {
   ui->setupUi(this);
 
+  // Set resource SVG icons for player buttons
+  ui->playBtn->setIcon(QIcon(":/icons/play.svg"));
+  ui->stopBtn->setIcon(QIcon(":/icons/stop.svg"));
+  ui->pauseBtn->setIcon(QIcon(":/icons/pause.svg"));
+  ui->nextBtn->setIcon(QIcon(":/icons/next.svg"));
+  ui->backBtn->setIcon(QIcon(":/icons/prev.svg"));
+  ui->btnMutePreview->setIcon(QIcon(":/icons/volume.svg"));
+  ui->addFile->setIcon(QIcon(":/icons/new.svg"));
+  ui->savePlaylist->setIcon(QIcon(":/icons/save.svg"));
+  ui->openPlaylist->setIcon(QIcon(":/icons/open.svg"));
+  ui->emptyPlaylist->setIcon(QIcon(":/icons/delete.svg"));
+  ui->addPlaylist->setIcon(QIcon(":/icons/add.svg"));
+
   // --- FILE MENU ---
   QMenu *fileMenu = ui->menubar->addMenu("&File");
 
   QAction *openAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::DocumentOpen), "Open List", this);
+      QIcon(":/icons/open.svg"), "Open List", this);
   fileMenu->addAction(openAction);
   connect(openAction, &QAction::triggered, this,
           &MainWindow::onOpenPlaylistClicked);
 
   QAction *addListAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::FormatJustifyFill), "Add List", this);
+      QIcon(":/icons/add.svg"), "Add List", this);
   fileMenu->addAction(addListAction);
   connect(addListAction, &QAction::triggered, this,
           &MainWindow::onAddPlaylistClicked);
 
   QAction *addFileAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::DocumentNew), "Add File", this);
+      QIcon(":/icons/new.svg"), "Add File", this);
   fileMenu->addAction(addFileAction);
   connect(addFileAction, &QAction::triggered, this, &MainWindow::onAddFile);
 
   fileMenu->addSeparator();
 
   QAction *saveAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave), "Save List", this);
+      QIcon(":/icons/save.svg"), "Save List", this);
   fileMenu->addAction(saveAction);
   connect(saveAction, &QAction::triggered, this,
           &MainWindow::onSavePlaylistClicked);
 
   QAction *emptyAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::EditDelete), "Empty List", this);
+      QIcon(":/icons/delete.svg"), "Empty List", this);
   fileMenu->addAction(emptyAction);
   connect(emptyAction, &QAction::triggered, this,
           &MainWindow::onEmptyPlaylistClicked);
@@ -112,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent)
   fileMenu->addSeparator();
 
   QAction *quitAction = new QAction(
-      QIcon::fromTheme(QIcon::ThemeIcon::SystemShutdown), "Quit", this);
+      QIcon(":/icons/exit.svg"), "Quit", this);
   fileMenu->addAction(quitAction);
   connect(quitAction, &QAction::triggered, this, &MainWindow::close);
 
@@ -1046,7 +1059,7 @@ void MainWindow::onMutePreviewClicked() {
   if (m_previewMuted) {
     m_lPreviewLeft->mute(true);
     ui->btnMutePreview->setIcon(
-        QIcon::fromTheme(QIcon::ThemeIcon::AudioVolumeMuted));
+        QIcon(":/icons/mute.svg"));
     ui->btnMutePreview->setStyleSheet(
         "QPushButton {\n"
         "  border: 2px solid rgb(170, 0, 0);\n"
@@ -1059,7 +1072,7 @@ void MainWindow::onMutePreviewClicked() {
   } else {
     m_lPreviewLeft->mute(false);
     ui->btnMutePreview->setIcon(
-        QIcon::fromTheme(QIcon::ThemeIcon::AudioVolumeHigh));
+        QIcon(":/icons/volume.svg"));
     ui->btnMutePreview->setStyleSheet(
         "QPushButton {\n"
         "  border: 2px solid rgb(0, 0, 0);\n"

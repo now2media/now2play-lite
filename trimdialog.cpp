@@ -10,6 +10,11 @@ TrimDialog::TrimDialog(QWidget *parent)
       m_fps(25.0), m_durationMs(0), m_audioEnabled(false), m_isScrubbing(false) {
   ui->setupUi(this);
 
+  // Set resource SVG icons for dialog buttons
+  ui->btnPlay->setIcon(QIcon(":/icons/play.svg"));
+  ui->btnPause->setIcon(QIcon(":/icons/pause.svg"));
+  ui->btnAudioToggle->setIcon(QIcon(":/icons/mute.svg")); // Initially muted
+
   m_preview->setProps("ui_framework", "qt");
   m_preview->previewEnable(ui->wPreview, false, true);
   m_preview->previewObject(m_file);
@@ -194,7 +199,7 @@ void TrimDialog::onMinFwd() { stepByMs(60000.0); }
 void TrimDialog::onAudioToggle() {
     m_audioEnabled = !m_audioEnabled;
     m_preview->setProps("audio", m_audioEnabled ? "true" : "false");
-    ui->btnAudioToggle->setIcon(QIcon::fromTheme(m_audioEnabled ? "audio-volume-high" : "audio-volume-muted"));
+    ui->btnAudioToggle->setIcon(QIcon(m_audioEnabled ? ":/icons/volume.svg" : ":/icons/mute.svg"));
 }
 
 void TrimDialog::onApply() {

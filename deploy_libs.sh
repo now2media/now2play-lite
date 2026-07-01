@@ -27,12 +27,30 @@ Prefix = .
 Plugins = .
 EOF
 
+# Tüm eklenti (plugin) kütüphanelerine patchelf ile RPATH yazarak üst klasördeki (yani binary'nin yanındaki) kütüphaneleri görmelerini sağla
+if [ -d "platforms" ]; then
+    echo "Platform eklentilerinin RPATH'leri ayarlaniyor..."
+    for lib in platforms/*.so* imageformats/*.so* iconengines/*.so* xcbglintegrations/*.so* wayland-graphics-integration-client/*.so*; do
+        [ -f "$lib" ] && [ ! -L "$lib" ] || continue
+        # Eklentiler genellikle ana dizine göre 1 seviye derindedir.
+        # Bu yüzden RPATH'e $ORIGIN/.. ekliyoruz.
+        patchelf --force-rpath --set-rpath '$ORIGIN:$ORIGIN/..' "$lib" 2>/dev/null
+    done
+fi
+
+# Ana klasördeki tüm kütüphanelerin RPATH'ini $ORIGIN olarak ayarla
+echo "Kütüphanelerin RPATH'leri ayarlaniyor..."
+for lib in *.so*; do
+    [ -f "$lib" ] && [ ! -L "$lib" ] || continue
+    patchelf --force-rpath --set-rpath '$ORIGIN' "$lib" 2>/dev/null
+done
+
 # Qt Creator'un (CMake) kullanıcının yerine otomatik olarak ikona sahip bir Linux başlatıcı (.desktop) oluşturmasını sağla
 cat > Now2Play.desktop <<EOF
 [Desktop Entry]
 Name=Now2Play
 Comment=Now2Play Media Player
-Exec=$(pwd)/now2play
+Exec=$(pwd)/now2play-lite
 Icon=$(pwd)/now2play.png
 Terminal=false
 Type=Application
@@ -40,3 +58,4 @@ EOF
 
 # Masaüstü kısayoluna çift tıklanabilmesi için çalışma (Executable) izni ver
 chmod +x Now2Play.desktop
+
