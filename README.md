@@ -1,4 +1,4 @@
-# now2play-lite
+# now2play-lite Free Linux Playout
 
 This is a simplified (lite) version of the now2play application.
 
